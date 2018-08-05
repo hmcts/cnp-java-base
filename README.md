@@ -37,6 +37,13 @@ Notes:
 * `APPLICATION_SIZE_ON_DISK_IN_MB` is the size (in MB) of your application JAR file.
 * DO NOT attempt to override any of the JVM tuning options specified in the example output above (e.g. `-Xmx`).  The memory calculator does this for you.
 
+## Building
+You can use the Makefile to build locally.  If you need to make a change, remember to tag it for the Dockerhub automated build.  For example:
+```
+git tag 1.1
+git push --tags
+```
+
 ## Credits and resources
 * Inspired by [this](https://medium.com/@matt_rasband/dockerizing-a-spring-boot-application-6ec9b9b41faf) blog post.
 * https://blog.csanchez.org/2017/05/31/running-a-jvm-in-a-container-without-getting-killed/
