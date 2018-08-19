@@ -3,6 +3,9 @@
 ## Purpose
 Base docker image for Java Spring Boot applications running in containers, specifically on Kubernetes.
 
+## Latest version:
+https://hub.docker.com/r/hmcts/cnp-java-base/tags/
+
 ## Features
 Uses the [Cloud Foundry Java Buildpack Memory Calculator](https://github.com/cloudfoundry/java-buildpack-memory-calculator) to dynamically tune the JVM based on application characteristics and container resource limits.  The idea is to avoid applications being 'OOM killed' by the container orchestrator.
 
@@ -17,7 +20,7 @@ PID   USER     TIME  COMMAND
 ## Usage
 To use this as your base image, construct your Dockerfile like so:
 ```
-FROM hmcts/cnp-java-base:1.1
+FROM hmcts/cnp-java-base:openjdk-jre-8-alpine-1.1
 
 # Mandatory!
 ENV APP moj-rhubarb-recipes-service.jar
