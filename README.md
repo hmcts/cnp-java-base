@@ -14,13 +14,13 @@ For example, a Java process launched using this image will have tunings similar 
 Tims-MacBook-Pro-3:moj timw$ docker exec 9eb ps aux
 PID   USER     TIME  COMMAND
     1 root      0:00 {run.sh} /bin/sh /opt/app/run.sh
-   14 root      0:47 java -jar moj-rhubarb-recipes-service.jar -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=1 -Xmx87434K -Xss1M -XX:ReservedCodeCacheSize=240M -XX:MaxDirectMemorySize=10M -XX:MaxMetaspaceSize=133750K
+   14 root      0:47 java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=1 -Xmx87434K -Xss1M -XX:ReservedCodeCacheSize=240M -XX:MaxDirectMemorySize=10M -XX:MaxMetaspaceSize=133750K -jar moj-rhubarb-recipes-service.jar
 ```
 
 ## Usage
 To use this as your base image, construct your Dockerfile like so:
 ```
-FROM hmcts/cnp-java-base:openjdk-jre-8-alpine-1.1
+FROM hmcts/cnp-java-base:openjdk-jre-8-alpine-1.2
 
 # Mandatory!
 ENV APP moj-rhubarb-recipes-service.jar
