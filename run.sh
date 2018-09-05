@@ -23,4 +23,7 @@ calc_opts=$(java-buildpack-memory-calculator \
   -stackThreads $stack_threads \
   -totMemory ${APPLICATION_TOTAL_MEMORY})
 
-java ${docker_opts} ${calc_opts} ${JAVA_OPTS} -jar ${APP}
+all_opts="${docker_opts} ${calc_opts} ${JAVA_OPTS}"
+echo "JVM args: ${all_opts}"
+
+java ${all_opts} -jar ${APP}
