@@ -36,7 +36,7 @@ COPY build/libs/$APP /opt/app/
 Notes:
 * You MUST provide the `APP`, `APPLICATION_TOTAL_MEMORY`, and `APPLICATION_SIZE_ON_DISK_IN_MB` environment variables
 * `JAVA_OPTS` is optional
-* `APPLICATION_TOTAL_MEMORY` should be the same as `resources.requests.memory` in your Kubernetes deployment template.
+* `APPLICATION_TOTAL_MEMORY` should be the same as `resources.limits.memory` in your Kubernetes deployment template.
 * `APPLICATION_SIZE_ON_DISK_IN_MB` is the size (in MB) of your application JAR file.
 * DO NOT attempt to override any of the JVM tuning options specified in the example output above (e.g. `-Xmx`).  The memory calculator does this for you.
 
