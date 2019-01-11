@@ -12,7 +12,7 @@ RUN apk update && apk add --no-cache git \
   && GOOS=linux go build -a
 
 # Base image for Gradle/Java/Springboot apps
-FROM openjdk:8-jre-alpine
+FROM openjdk:8u181-jre-alpine3.8
 
 ENV APP_USER hmcts
 
