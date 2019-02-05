@@ -20,7 +20,7 @@ PID   USER     TIME  COMMAND
 ## Usage
 To use this as your base image, construct your Dockerfile like so:
 ```
-FROM hmcts/cnp-java-base:openjdk-jre-8-alpine-1.2
+FROM hmcts/cnp-java-base:openjdk-8u181-jre-alpine3.8-1.0
 
 # Mandatory!
 ENV APP moj-rhubarb-recipes-service.jar
