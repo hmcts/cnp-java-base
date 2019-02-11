@@ -11,7 +11,7 @@ RUN addgroup -g 1000 -S $APP_USER \
 WORKDIR /opt/app
 USER $APP_USER
 
-ENV JAVA_TOOL_OPTIONS "-XX:+UseContainerSupport -XX:InitialRAMPercentage=40.0 -XX:MaxRAMPercentage=90.0 -XX:MinRAMPercentage=25.0"
+ENV JAVA_TOOL_OPTIONS "-XX:InitialRAMPercentage=20.0 -XX:MaxRAMPercentage=65.0 -XX:MinRAMPercentage=10.0 -XX:+UseParallelOldGC -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Xms128M"
 
 ENTRYPOINT ["/usr/bin/java", "-jar"]
 # Users should pass a jar file + options
