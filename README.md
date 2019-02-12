@@ -17,23 +17,18 @@ For documentation for (previous) versions, openjdk-8u181-jre-alpine3.8-1.0  and 
 
 ## Usage
 To use this as your base image, construct your Dockerfile like so:
-For the latest version (openjdk-8u191-jre-alpine3.9-1.0):
 ```
-FROM hmcts/cnp-java-base:openjdk-jre-8-alpine-2.0
-
-# Note: replace with your application name
-ENV APP moj-rhubarb-recipes-service.jar
+FROM hmcts/cnp-java-base:<get the latest tag from https://hub.docker.com/r/hmcts/cnp-java-base/tags/>
 
 # Optional
 ENV JAVA_OPTS ""
 
 # Note: replace with your app name.
-COPY build/libs/moj-rhubarb-recipes-service.jar /opt/app/
+COPY build/libs/cnp-rhubarb-recipes-service.jar /opt/app/
 
-# Note: replace with your app name. Cannot use $APP here as there is no shell expansion
-CMD ["moj-rhubarb-recipes-service.jar"]
+CMD ["cnp-rhubarb-recipes-service.jar"]
 # Alternatively you can also pass options to your applications
-# CMD ["moj-rhubarb-recipes-service.jar", "--option1", ...]
+# CMD ["cnp-rhubarb-recipes-service.jar", "--option1", ...]
 
 ```
 
@@ -46,7 +41,7 @@ know what you are doing.
 ## Building
 You can use the Makefile to build locally.  If you need to make a change, remember to tag it for the Dockerhub automated build.  For example:
 ```
-git tag 1.1
+git tag openjdk-8u191-jre-alpine3.9-1.0
 git push --tags
 ```
 
@@ -56,5 +51,3 @@ git push --tags
 * https://www.oracle.com/technetwork/java/javase/8u191-relnotes-5032181.html#JDK-8146115
 * https://developers.redhat.com/blog/2017/04/04/openjdk-and-containers/#more-433899
 
-## TO DO
-* License information
