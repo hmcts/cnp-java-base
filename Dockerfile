@@ -1,29 +1,18 @@
-# Build memory calculator
-FROM golang:1.10.3-alpine
-
-ENV MEM_CALC_VERSION v3.13.0.RELEASE
-
-WORKDIR /go/src
-
-RUN apk update && apk add --no-cache git \
-  && go get -v github.com/cloudfoundry/java-buildpack-memory-calculator \
-  && cd github.com/cloudfoundry/java-buildpack-memory-calculator \
-  && git checkout $MEM_CALC_VERSION \
-  && GOOS=linux go build -a
-
 # Base image for Gradle/Java/Springboot apps
-FROM openjdk:8u181-jre-alpine3.8
+FROM openjdk:8u191-jre-alpine3.9
 
 ENV APP_USER hmcts
 
-COPY --from=0 /go/src/github.com/cloudfoundry/java-buildpack-memory-calculator /usr/bin/
-COPY run.sh /opt/app/
-
 RUN addgroup -g 1000 -S $APP_USER \
   && adduser -u 1000 -S $APP_USER -G $APP_USER \
+  && mkdir -p /opt/app \
   && chown -R $APP_USER:$APP_USER /opt/app
 
 WORKDIR /opt/app
 USER $APP_USER
 
-ENTRYPOINT ["/opt/app/run.sh"]
+ENV JAVA_TOOL_OPTIONS "-XX:InitialRAMPercentage=20.0 -XX:MaxRAMPercentage=65.0 -XX:MinRAMPercentage=10.0 -XX:+UseParallelOldGC -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Xms128M ${JAVA_OPTS}"
+
+ENTRYPOINT ["/usr/bin/java", "-jar"]
+# Users should pass a jar file + options
+# CMD ["app_name.jar", "--option1", ...]
