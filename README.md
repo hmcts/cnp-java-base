@@ -50,4 +50,4 @@ git push --tags
 * https://blog.docker.com/2018/04/improved-docker-container-integration-with-java-10/
 * https://www.oracle.com/technetwork/java/javase/8u191-relnotes-5032181.html#JDK-8146115
 * https://developers.redhat.com/blog/2017/04/04/openjdk-and-containers/#more-433899
-
+* https://developers.redhat.com/blog/2014/07/22/dude-wheres-my-paas-memory-tuning-javas-footprint-in-openshift-part-2/
