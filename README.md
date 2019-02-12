@@ -1,5 +1,5 @@
 # cnp-java-base
-----
+
 ## Purpose
 Base docker image for Java Spring Boot applications running in containers, specifically on Kubernetes.
 
@@ -9,7 +9,7 @@ https://hub.docker.com/r/hmcts/cnp-java-base/tags/
 ## Features
 
 It uses the new JVM container-aware settings introduced in Java 10 and backported to Java 8 in release 191. For more information see:
-[Java 8u191 release notes](https://www.oracle.com/technetwork/java/javase/8u191-relnotes-5032181.html#JDK-8146115)
+[Java 8u191 release notes](https://www.oracle.com/technetwork/java/javase/8u191-relnotes-5032181.html#JDK-8146115). 
 The image includes base settings tuned to provide best trade off between speed and memory efficiency. 
 
 For documentation for (previous) versions, openjdk-8u181-jre-alpine3.8-1.0  and openjdk-jre-8-slim-stretch-1.0, see:
@@ -33,7 +33,6 @@ CMD ["cnp-rhubarb-recipes-service.jar"]
 ```
 
 Notes:
-* You MUST provide the `APP` environment variables
 * `JAVA_OPTS` is optional
 * DO NOT attempt to override any of the JVM tuning options specified in the base Dockerfile (e.g. `-Xmx`) unless you really
 know what you are doing.
