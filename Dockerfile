@@ -3,6 +3,9 @@ FROM openjdk:8u191-jre-alpine3.9
 
 ENV APP_USER hmcts
 
+# https://github.com/apangin/jattach
+RUN apk add --no-cache jattach --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/
+
 RUN addgroup -g 1000 -S $APP_USER \
   && adduser -u 1000 -S $APP_USER -G $APP_USER \
   && mkdir -p /opt/app \
