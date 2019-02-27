@@ -9,7 +9,10 @@ RUN apk add --no-cache jattach --repository http://dl-cdn.alpinelinux.org/alpine
 RUN addgroup -g 1000 -S $APP_USER \
   && adduser -u 1000 -S $APP_USER -G $APP_USER \
   && mkdir -p /opt/app \
-  && chown -R $APP_USER:$APP_USER /opt/app
+  && chown -R $APP_USER:$APP_USER /opt/app \
+  && mkdir -p /mnt/secrets \
+  && chown -R root:$APP_USER /mnt/secrets \
+  && chmod 4755 /mnt/secrets
 
 WORKDIR /opt/app
 USER $APP_USER
