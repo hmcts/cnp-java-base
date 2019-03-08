@@ -6,6 +6,12 @@ ENV APP_USER hmcts
 ONBUILD ARG JAVA_OPTS
 ONBUILD ENV JAVA_OPTS=$JAVA_OPTS
 
+ONBUILD ARG APP_INSIGHTS_AGENT_VERSION
+ONBUILD ENV APP_INSIGHTS_AGENT_VERSION=${APP_INSIGHTS_AGENT_VERSION:-2.3.1}
+
+ONBUILD ARG JAVA_AGENT_OPTIONS
+ONBUILD ENV JAVA_AGENT_OPTIONS=${JAVA_AGENT_OPTIONS:--javaagent:/opt/app/applicationinsights-agent-${APP_INSIGHTS_AGENT_VERSION}.jar}
+
 RUN addgroup -g 1000 -S $APP_USER \
   && adduser -u 1000 -S $APP_USER -G $APP_USER \
   && mkdir -p /opt/app \
@@ -14,9 +20,7 @@ RUN addgroup -g 1000 -S $APP_USER \
 WORKDIR /opt/app
 USER $APP_USER
 
-ENV APP_INSIGHTS_AGENT_VERSION 2.3.1
-ENV JAVA_AGENT_OPTIONS -javaagent:/opt/app/applicationinsights-agent-${APP_INSIGHTS_AGENT_VERSION}.jar
-RUN wget -O /opt/app/applicationinsights-agent-${APP_INSIGHTS_AGENT_VERSION}.jar \
+ONBUILD RUN wget -O /opt/app/applicationinsights-agent-${APP_INSIGHTS_AGENT_VERSION}.jar \
   https://github.com/Microsoft/ApplicationInsights-Java/releases/download/v${APP_INSIGHTS_AGENT_VERSION}/applicationinsights-agent-${APP_INSIGHTS_AGENT_VERSION}.jar
 
 # The following options are used for PRs:
