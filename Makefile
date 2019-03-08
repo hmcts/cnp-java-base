@@ -6,5 +6,3 @@ build:
 run:
 	docker run -it --rm hmcts/cnp-java-base:latest sh
 
-debian:
-	docker build -f Dockerfile.debian -t hmcts/cnp-java-base:debian .
