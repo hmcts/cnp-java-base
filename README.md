@@ -16,13 +16,25 @@ The image includes base settings tuned to provide best trade off between speed a
 For documentation for (previous) versions, openjdk-8u181-jre-alpine3.8-1.0  and openjdk-jre-8-slim-stretch-1.0, see:
 [Openjdk 8 181 base image docs](https://github.com/hmcts/cnp-java-base/tree/openjdk-8u181-jre-alpine3.8-1.0) 
 
+Application insights agent is bundled (check APP_INSIGHTS_AGENT_VERSION for the current version, this can be customised), and loaded at runtime for you with the `-agentlib` JVM option.
+
 ## Usage
 To use this as your base image, construct your Dockerfile like so:
 ```
 FROM hmcts/cnp-java-base:<get the latest tag from https://hub.docker.com/r/hmcts/cnp-java-base/tags/>
 
-# Optional
-ENV JAVA_OPTS ""
+# Note: replace with your app name.
+COPY build/libs/cnp-rhubarb-recipes-service.jar /opt/app/
+
+CMD ["cnp-rhubarb-recipes-service.jar"]
+```
+
+Advanced version:
+```
+ARG JAVA_OPTS="" # Optional, do not include if unneeded
+ARG APP_INSIGHTS_AGENT_VERSION=2.3.2 # get a different version of the app insights agent jar
+
+FROM hmcts/cnp-java-base:<get the latest tag from https://hub.docker.com/r/hmcts/cnp-java-base/tags/>
 
 # Note: replace with your app name.
 COPY build/libs/cnp-rhubarb-recipes-service.jar /opt/app/
@@ -30,11 +42,9 @@ COPY build/libs/cnp-rhubarb-recipes-service.jar /opt/app/
 CMD ["cnp-rhubarb-recipes-service.jar"]
 # Alternatively you can also pass options to your applications
 # CMD ["cnp-rhubarb-recipes-service.jar", "--option1", ...]
-
 ```
 
 Notes:
-* `JAVA_OPTS` is optional
 * DO NOT attempt to override any of the JVM tuning options specified in the base Dockerfile (e.g. `-Xmx`) unless you really
 know what you are doing.
 
