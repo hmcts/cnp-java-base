@@ -13,15 +13,31 @@ It uses the new JVM container-aware settings introduced in Java 10 and backporte
 
 The image includes base settings tuned to provide best trade off between speed and memory efficiency. 
 
-For documentation for (previous) versions, openjdk-8u181-jre-alpine3.8-1.0  and openjdk-jre-8-slim-stretch-1.0, see:
-[Openjdk 8 181 base image docs](https://github.com/hmcts/cnp-java-base/tree/openjdk-8u181-jre-alpine3.8-1.0) 
-
-Application insights agent is bundled (check APP_INSIGHTS_AGENT_VERSION for the current version, this can be customised), and loaded at runtime for you with the `-agentlib` JVM option.
+Application insights agent is bundled for java8 based images (check APP_INSIGHTS_AGENT_VERSION for the current version, this can be customised), and loaded at runtime for you with the `-agentlib` JVM option.
+Java 11 images don't have a shell built in so you will need to add the agent yourself
 
 ## Usage
-To use this as your base image, construct your Dockerfile like so:
+To use this as your base image, construct your Dockerfile like so (java 8):
 ```
 FROM hmcts/cnp-java-base:<get the latest tag from https://hub.docker.com/r/hmcts/cnp-java-base/tags/>
+
+# If you have any custom app insights agent config then add it to your image
+#COPY lib/AI-Agent.xml /opt/app/
+
+# Note: replace with your app name.
+COPY build/libs/cnp-rhubarb-recipes-service.jar /opt/app/
+
+CMD ["cnp-rhubarb-recipes-service.jar"]
+```
+
+Java 11:
+```
+FROM hmcts/cnp-java-base:<get the latest tag from https://hub.docker.com/r/hmcts/cnp-java-base/tags/>
+
+# this can be retrieved from: https://github.com/hmcts/cnp-plum-recipes-service/raw/5e2744bd03b61e3dff3ef00172eb3a00b3001114/lib/applicationinsights-agent-2.4.0-BETA-SNAPSHOT.jar
+# it's a patched version to work on java 11 waiting for the PR to be merged
+# (AI-Agent.xml is optional)
+COPY lib/applicationinsights-agent-2.4.0-BETA-SNAPSHOT.jar lib/AI-Agent.xml /opt/app/
 
 # Note: replace with your app name.
 COPY build/libs/cnp-rhubarb-recipes-service.jar /opt/app/
