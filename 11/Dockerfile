@@ -15,6 +15,8 @@ ONBUILD ENV JAVA_AGENT_OPTIONS=${JAVA_AGENT_OPTIONS:--javaagent:/opt/app/applica
 
 COPY group /etc/group
 COPY passwd /etc/passwd
+COPY jattach /bin/jattach
+
 
 COPY --chown=hmcts:hmcts app/ /opt
 

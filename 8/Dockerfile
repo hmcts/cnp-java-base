@@ -17,6 +17,8 @@ RUN addgroup -g 1000 -S $APP_USER \
   && mkdir -p /opt/app \
   && chown -R $APP_USER:$APP_USER /opt/app
 
+RUN apk add --no-cache jattach --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/
+
 WORKDIR /opt/app
 USER $APP_USER
 
