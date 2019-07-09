@@ -19,7 +19,7 @@ Java 11 images don't have a shell built in so you will need to add the agent you
 ## Usage
 To use this as your base image, construct your Dockerfile like so (java 8):
 ```
-FROM hmcts/cnp-java-base:<get the latest tag from https://hub.docker.com/r/hmcts/cnp-java-base/tags/>
+FROM hmctspublic.azurecr.io/base/java:<get the latest tag from the hmctspublic Azure registry>
 
 # If you have any custom app insights agent config then add it to your image
 #COPY lib/AI-Agent.xml /opt/app/
