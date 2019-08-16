@@ -44,9 +44,12 @@ CMD ["cnp-rhubarb-recipes-service.jar"]
 
 Advanced version:
 ```
+ARG JAVA_OPTS="" # Optional, do not include if unneeded
 ARG APP_INSIGHTS_AGENT_VERSION=2.3.2 # get a different version of the app insights agent jar
 
 FROM hmcts/cnp-java-base:<get the latest tag from https://hub.docker.com/r/hmcts/cnp-java-base/tags/>
+
+COPY lib/applicationinsights-agent-<AI-version>.jar lib/AI-Agent.xml /opt/app/
 
 # Note: replace with your app name.
 COPY build/libs/cnp-rhubarb-recipes-service.jar /opt/app/
