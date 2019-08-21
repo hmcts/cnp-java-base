@@ -2,6 +2,9 @@
 ARG version=11
 FROM hmctspublic.azurecr.io/imported/distroless/java:${version}
 
+# https://github.com/GoogleContainerTools/distroless/issues/225#issuecomment-516738609
+# Remove this work around once busybox / distroless have a fix
+# then the dockerfiles can be combined again
 COPY --from=amd64/busybox:1.31.0 /bin/busybox /busybox/busybox
 
 ENV APP_USER hmcts
