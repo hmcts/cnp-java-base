@@ -2,8 +2,6 @@
 ARG version=11
 FROM hmctspublic.azurecr.io/imported/distroless/java:${version}
 
-#debugonly COPY --from=amd64/busybox:1.31.0 /bin/busybox /busybox/busybox
-
 ENV APP_USER hmcts
 
 ONBUILD ARG JAVA_OPTS
