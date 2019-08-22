@@ -6,7 +6,7 @@ Base docker image for Java Spring Boot applications running in containers, speci
 ## Latest version:
 
 ```
-az acr repository show-tags -n hmctspublic --repository base/java
+az acr repository show-tags -n hmctspublic --repository base/java --subscription DCD-CNP-PROD
 ```
 
 ## Features
