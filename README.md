@@ -4,7 +4,10 @@
 Base docker image for Java Spring Boot applications running in containers, specifically on Kubernetes.
 
 ## Latest version:
-https://hub.docker.com/r/hmcts/cnp-java-base/tags/
+
+```
+az acr repository show-tags -n hmctspublic --repository base/java
+```
 
 ## Features
 
