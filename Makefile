@@ -1,10 +1,10 @@
 .DEFAULT=build
 
 build-8:
-	docker build --build-arg APP_INSIGHTS_AGENT_VERSION=2.3.1 --build-arg version=8 -t base/java:openjdk-8-distroless-1.1 distroless/
+	docker build --build-arg version=8 -t base/java:openjdk-8-distroless-1.1 distroless/
 
 build-8-debug:
-	docker build --build-arg APP_INSIGHTS_AGENT_VERSION=2.3.1 --build-arg version=8-debug -t base/java:openjdk-8-distroless-debug-1.1 -f distroless/debug.Dockerfile distroless/
+	docker build --build-arg version=8-debug -t base/java:openjdk-8-distroless-debug-1.1 -f distroless/debug.Dockerfile distroless/
 
 build-11:
 	docker build --build-arg version=11 -t base/java:openjdk-11-distroless-1.1 distroless/
