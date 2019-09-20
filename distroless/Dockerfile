@@ -1,5 +1,5 @@
 # Base image for Gradle/Java/Springboot apps
-ARG version=11
+ARG version=8
 FROM hmctspublic.azurecr.io/imported/distroless/java:${version}
 
 ENV APP_USER hmcts
@@ -8,7 +8,7 @@ ONBUILD ARG JAVA_OPTS
 ONBUILD ENV JAVA_OPTS=$JAVA_OPTS
 
 ONBUILD ARG APP_INSIGHTS_AGENT_VERSION
-ONBUILD ENV APP_INSIGHTS_AGENT_VERSION=${APP_INSIGHTS_AGENT_VERSION:-2.4.0-BETA-SNAPSHOT}
+ONBUILD ENV APP_INSIGHTS_AGENT_VERSION=${APP_INSIGHTS_AGENT_VERSION}
 
 ONBUILD ARG JAVA_AGENT_OPTIONS
 ONBUILD ENV JAVA_AGENT_OPTIONS=${JAVA_AGENT_OPTIONS:--javaagent:/opt/app/applicationinsights-agent-${APP_INSIGHTS_AGENT_VERSION}.jar}
@@ -19,6 +19,7 @@ COPY jattach /bin/jattach
 
 
 COPY --chown=hmcts:hmcts app/ /opt
+ONBUILD ADD --chown=hmcts:hmcts https://github.com/Microsoft/ApplicationInsights-Java/releases/download/${APP_INSIGHTS_AGENT_VERSION}/applicationinsights-agent-${APP_INSIGHTS_AGENT_VERSION}.jar /opt/app
 
 WORKDIR /opt/app
 USER $APP_USER
