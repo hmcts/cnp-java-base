@@ -1,0 +1,46 @@
+name: Publish Java Base Image
+trigger:
+  branches:
+    include:
+      - refs/tags/*
+pr: none
+
+variables:
+  acrName: hmctspublic
+  targetRegistry: hmctspublic.azurecr.io
+  serviceConnection: 'azurerm-prod'
+
+jobs:
+  - job:
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    strategy:
+      maxParallel: 4
+      matrix:
+        openjdk-8-distroless:
+          taskName: java-base-distroless-8
+          dockerfile: Dockerfile
+          version: "8"
+        openjdk-8-distroless-debug:
+          taskName: java-base-distroless-debug-8
+          dockerfile: debug.Dockerfile
+          version: "8-debug"
+        openjdk-11-distroless:
+          taskName: java-base-distroless-11
+          dockerfile: Dockerfile
+          version: "11"
+        openjdk-11-distroless-debug:
+          taskName: java-base-distroless-debug-11
+          dockerfile: debug.Dockerfile
+          version: "11-debug"
+  steps:
+    - task: AzureCLI@1
+      displayName: 'Publish base image $(taskName)'
+      inputs:
+        azureSubscription: $(serviceConnection)
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          az acr login --name $(acrName)
+          VERSION_TAG=`git describe --tags`
+          docker build --build-arg version=$(version) -t base/java:openjdk-$(version)-distroless-$VERSION_TAG -f distroless/$(dockerfile)
+          docker push $(targetRegistry)/base/java:openjdk-$(version)-distroless-$VERSION_TAG
