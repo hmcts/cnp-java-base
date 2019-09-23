@@ -47,5 +47,5 @@ jobs:
           inlineScript: |
             az acr login --name $(acrName)
             VERSION_TAG=`git describe --tags`
-            docker build --build-arg version=$(version) -t base/java:openjdk-$(version)-distroless-$VERSION_TAG -f distroless/$(dockerfile) distroless/
+            docker build --build-arg version=$(version) -t $(targetRegistry)/base/java:openjdk-$(version)-distroless-$VERSION_TAG -f distroless/$(dockerfile) distroless/
             docker push $(targetRegistry)/base/java:openjdk-$(version)-distroless-$VERSION_TAG
