@@ -21,10 +21,10 @@ Application insights agent variables are set by default, you need to add the age
 ## Usage
 To use this as your base image, construct your Dockerfile like so (java 8):
 ```
-ARG APP_INSIGHTS_AGENT_VERSION=<AI-version>
+ARG APP_INSIGHTS_AGENT_VERSION=<AI-version> # optional to override default version
 FROM hmctspublic.azurecr.io/base/java:<get the latest tag from the hmctspublic Azure registry>
 
-COPY lib/applicationinsights-agent-<AI-version>.jar lib/AI-Agent.xml /opt/app/
+COPY lib/AI-Agent.xml /opt/app/
 
 # Note: replace with your app name.
 COPY build/libs/cnp-rhubarb-recipes-service.jar /opt/app/
@@ -34,10 +34,10 @@ CMD ["cnp-rhubarb-recipes-service.jar"]
 
 Java 11:
 ```
-ARG APP_INSIGHTS_AGENT_VERSION=<AI-version>
+ARG APP_INSIGHTS_AGENT_VERSION=<AI-version> # optional to override default version
 FROM hmcts/cnp-java-base:<get the latest tag from https://hub.docker.com/r/hmcts/cnp-java-base/tags/>
 
-COPY lib/applicationinsights-agent-<AI-version>.jar lib/AI-Agent.xml /opt/app/
+COPY lib/AI-Agent.xml /opt/app/
 
 # Note: replace with your app name.
 COPY build/libs/cnp-rhubarb-recipes-service.jar /opt/app/
@@ -52,7 +52,7 @@ ARG APP_INSIGHTS_AGENT_VERSION=2.3.2 # get a different version of the app insig
 
 FROM hmcts/cnp-java-base:<get the latest tag from https://hub.docker.com/r/hmcts/cnp-java-base/tags/>
 
-COPY lib/applicationinsights-agent-<AI-version>.jar lib/AI-Agent.xml /opt/app/
+COPY lib/AI-Agent.xml /opt/app/
 
 # Note: replace with your app name.
 COPY build/libs/cnp-rhubarb-recipes-service.jar /opt/app/
