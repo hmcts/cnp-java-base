@@ -33,14 +33,14 @@ jobs:
           taskName: java-base-distroless-debug-11
           dockerfile: debug.Dockerfile
           version: "11-debug"
-  steps:
-    - task: AzureCLI@1
-      displayName: 'Publish base image $(taskName)'
-      inputs:
-        azureSubscription: $(serviceConnection)
-        scriptLocation: 'inlineScript'
-        inlineScript: |
-          az acr login --name $(acrName)
-          VERSION_TAG=`git describe --tags`
-          docker build --build-arg version=$(version) -t base/java:openjdk-$(version)-distroless-$VERSION_TAG -f distroless/$(dockerfile)
-          docker push $(targetRegistry)/base/java:openjdk-$(version)-distroless-$VERSION_TAG
+    steps:
+      - task: AzureCLI@1
+        displayName: 'Publish base image $(taskName)'
+        inputs:
+          azureSubscription: $(serviceConnection)
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            az acr login --name $(acrName)
+            VERSION_TAG=`git describe --tags`
+            docker build --build-arg version=$(version) -t base/java:openjdk-$(version)-distroless-$VERSION_TAG -f distroless/$(dockerfile)
+            docker push $(targetRegistry)/base/java:openjdk-$(version)-distroless-$VERSION_TAG
