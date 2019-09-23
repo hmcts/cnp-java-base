@@ -12,6 +12,11 @@ variables:
 
 jobs:
   - job:
+    condition: >
+      and(
+          succeeded(),
+          startsWith(variables['Build.SourceBranch'], 'refs/tags/')
+        )
     pool:
       vmImage: 'Ubuntu 16.04'
     strategy:
