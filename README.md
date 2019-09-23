@@ -1,5 +1,7 @@
 # cnp-java-base
 
+[![Build Status](https://dev.azure.com/hmcts/Platform%20Engineering/_apis/build/status/ACR/Publish%20Java%20Base%20Image?branchName=master)](https://dev.azure.com/hmcts/Platform%20Engineering/_build/latest?definitionId=218&branchName=master)
+
 ## Purpose
 Base docker image for Java Spring Boot applications running in containers, specifically on Kubernetes.
 
