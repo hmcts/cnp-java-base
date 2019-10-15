@@ -36,7 +36,7 @@ COPY passwd /etc/passwd
 COPY jattach /bin/jattach
 
 
-COPY --chown=hmcts:hmcts app/ /opt
+COPY --chown=hmcts:hmcts app/ /opt/app/
 ONBUILD ADD --chown=hmcts:hmcts https://github.com/Microsoft/ApplicationInsights-Java/releases/download/${APP_INSIGHTS_AGENT_VERSION}/applicationinsights-agent-${APP_INSIGHTS_AGENT_VERSION}.jar /opt/app
 
 WORKDIR /opt/app
