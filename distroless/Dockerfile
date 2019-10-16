@@ -28,8 +28,7 @@ ONBUILD ARG DEV_MODE
 ONBUILD ARG DEV_JVM_ARGS=${DEV_MODE:+'-XX:InitialRAMPercentage=20.0 -XX:MaxRAMPercentage=65.0 -XX:MinRAMPercentage=10.0 -XX:+UseParallelOldGC -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Xms128M'}
 ONBUILD ARG JVM_ARGS=${DEV_JVM_ARGS:-'-XX:InitialRAMPercentage=30.0 -XX:MaxRAMPercentage=65.0 -XX:MinRAMPercentage=30.0 -XX:+UseConcMarkSweepGC'}
 
-ONBUILD ARG JVM_ENCODING_ARGS
-ONBUILD ENV JVM_ENCODING_ARGS=${JVM_ENCODING_ARGS:-'-Dfile.encoding=UTF-8'}
+ONBUILD ARG JVM_ENCODING_ARGS='-Dfile.encoding=UTF-8'
 
 ONBUILD ARG JAVA_AGENT_OPTIONS
 ONBUILD ENV JAVA_AGENT_OPTIONS=${JAVA_AGENT_OPTIONS:--javaagent:/opt/app/applicationinsights-agent-${APP_INSIGHTS_AGENT_VERSION}.jar}
