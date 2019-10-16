@@ -15,6 +15,8 @@ ONBUILD ENV JAVA_OPTS=$JAVA_OPTS
 ONBUILD ARG APP_INSIGHTS_AGENT_VERSION
 ONBUILD ENV APP_INSIGHTS_AGENT_VERSION=${APP_INSIGHTS_AGENT_VERSION:-2.5.0}
 
+ONBUILD ARG JVM_ENCODING_ARGS='-Dfile.encoding=UTF-8'
+
 ONBUILD ARG DEV_MODE
 # The following options are used for PRs( DEV_MODE):
 # - Use the followiwng RAM percentages from total RAM exposed by the container to use:
@@ -62,7 +64,7 @@ USER $APP_USER
 #   -XX:AdaptiveSizePolicyWeight=90
 # - Use a small min heap size (try to save memory):
 #   -Xms128M
-ONBUILD ENV JAVA_TOOL_OPTIONS "${JVM_ARGS} ${JAVA_OPTS} ${JAVA_AGENT_OPTIONS}"
+ONBUILD ENV JAVA_TOOL_OPTIONS "${JVM_ARGS} ${JAVA_OPTS} ${JAVA_AGENT_OPTIONS} ${JVM_ENCODING_ARGS}"
 
 ENTRYPOINT ["/usr/bin/java", "-jar"]
 # Users should pass a jar file + options
