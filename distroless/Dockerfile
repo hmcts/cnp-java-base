@@ -29,7 +29,7 @@ ONBUILD ARG DEV_JVM_ARGS=${DEV_MODE:+'-XX:InitialRAMPercentage=20.0 -XX:MaxRAMPe
 ONBUILD ARG JVM_ARGS=${DEV_JVM_ARGS:-'-XX:InitialRAMPercentage=30.0 -XX:MaxRAMPercentage=65.0 -XX:MinRAMPercentage=30.0 -XX:+UseConcMarkSweepGC'}
 
 ONBUILD ARG JVM_ENCODING_ARGS
-ONBUILD ENV ENCODING_ARGS=${JVM_ENCODING_ARGS:-'-Dfile.encoding=UTF-8'}
+ONBUILD ENV JVM_ENCODING_ARGS=${JVM_ENCODING_ARGS:-'-Dfile.encoding=UTF-8'}
 
 ONBUILD ARG JAVA_AGENT_OPTIONS
 ONBUILD ENV JAVA_AGENT_OPTIONS=${JAVA_AGENT_OPTIONS:--javaagent:/opt/app/applicationinsights-agent-${APP_INSIGHTS_AGENT_VERSION}.jar}
@@ -45,7 +45,7 @@ ONBUILD ADD --chown=hmcts:hmcts https://github.com/Microsoft/ApplicationInsights
 WORKDIR /opt/app
 USER $APP_USER
 
-ONBUILD ENV JAVA_TOOL_OPTIONS "${JVM_ARGS} ${JAVA_OPTS} ${JAVA_AGENT_OPTIONS} ${ENCODING_ARGS}"
+ONBUILD ENV JAVA_TOOL_OPTIONS "${JVM_ARGS} ${JAVA_OPTS} ${JAVA_AGENT_OPTIONS} ${JVM_ENCODING_ARGS}"
 
 ENTRYPOINT ["/usr/bin/java", "-jar"]
 # Users should pass a jar file + options
