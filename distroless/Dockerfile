@@ -1,6 +1,6 @@
 # Base image for Gradle/Java/Springboot apps
 ARG version=11
-FROM hmctspublic.azurecr.io/imported/distroless/java:${version}
+FROM hmctspublic.azurecr.io/imported/distroless/java${version}:latest
 
 ENV APP_USER hmcts
 
