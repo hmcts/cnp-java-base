@@ -1,6 +1,6 @@
 # Base image for Gradle/Java/Springboot apps
 ARG version=11
-FROM hmctspublic.azurecr.io/imported/distroless/java:${version}
+FROM hmctspublic.azurecr.io/imported/distroless/java${version}:debug
 
 # https://github.com/GoogleContainerTools/distroless/issues/225#issuecomment-516738609
 # Remove this work around once busybox / distroless have a fix
