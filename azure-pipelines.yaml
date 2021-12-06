@@ -38,6 +38,14 @@ jobs:
           taskName: java-base-distroless-debug-11
           dockerfile: debug.Dockerfile
           version: "11-debug"
+        openjdk-17-distroless:
+          taskName: java-base-distroless-17
+          dockerfile: Dockerfile
+          version: "17"
+        openjdk-17-distroless-debug:
+          taskName: java-base-distroless-debug-17
+          dockerfile: debug.Dockerfile
+          version: "17-debug"
     steps:
       - task: AzureCLI@1
         displayName: 'Publish base image $(taskName)'
