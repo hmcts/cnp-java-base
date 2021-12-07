@@ -22,14 +22,6 @@ jobs:
     strategy:
       maxParallel: 4
       matrix:
-        openjdk-8-distroless:
-          taskName: java-base-distroless-8
-          dockerfile: Dockerfile
-          version: "8"
-        openjdk-8-distroless-debug:
-          taskName: java-base-distroless-debug-8
-          dockerfile: debug.Dockerfile
-          version: "8-debug"
         openjdk-11-distroless:
           taskName: java-base-distroless-11
           dockerfile: Dockerfile
