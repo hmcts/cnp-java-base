@@ -18,7 +18,7 @@ jobs:
           startsWith(variables['Build.SourceBranch'], 'refs/tags/')
         )
     pool:
-      vmImage: 'Ubuntu 16.04'
+      vmImage: 'ubuntu-latest'
     strategy:
       maxParallel: 4
       matrix:
