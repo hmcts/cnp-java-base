@@ -23,7 +23,7 @@ ONBUILD ARG DEV_MODE
 #   -XX:InitialRAMPercentage=20.0 -XX:MaxRAMPercentage=65.0 -XX:MinRAMPercentage=10.0
 # - Use parallel collector. This is to have a more efficient use of memory in PRs as it can be
 #   made to reclaim more aggressively:
-#   -XX:+UseParallelOldGC
+#   -XX:+UseParallelGC
 # - Grow the heap when only 20% is free and shrink it when more than 40% is free:
 #   -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40
 # - A hint to the virtual machine that up to 20% of time can be spent in GC (this will save memory at the cost of some time):
@@ -33,8 +33,8 @@ ONBUILD ARG DEV_MODE
 # - Use a small min heap size (try to save memory):
 #   -Xms128M
 
-ONBUILD ARG DEV_JVM_ARGS=${DEV_MODE:+'-XX:InitialRAMPercentage=20.0 -XX:MaxRAMPercentage=65.0 -XX:MinRAMPercentage=10.0 -XX:+UseParallelOldGC -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Xms128M'}
-ONBUILD ARG JVM_ARGS=${DEV_JVM_ARGS:-'-XX:InitialRAMPercentage=30.0 -XX:MaxRAMPercentage=65.0 -XX:MinRAMPercentage=30.0 -XX:+UseConcMarkSweepGC'}
+ONBUILD ARG DEV_JVM_ARGS=${DEV_MODE:+'-XX:InitialRAMPercentage=20.0 -XX:MaxRAMPercentage=65.0 -XX:MinRAMPercentage=10.0 -XX:+UseParallelGC -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Xms128M'}
+ONBUILD ARG JVM_ARGS=${DEV_JVM_ARGS:-'-XX:InitialRAMPercentage=30.0 -XX:MaxRAMPercentage=65.0 -XX:MinRAMPercentage=30.0'}
 
 ONBUILD ARG JAVA_AGENT_OPTIONS
 ONBUILD ENV JAVA_AGENT_OPTIONS=${JAVA_AGENT_OPTIONS:--javaagent:/opt/app/applicationinsights-agent-${APP_INSIGHTS_AGENT_VERSION}.jar}
@@ -55,7 +55,7 @@ USER $APP_USER
 #   -XX:InitialRAMPercentage=20.0 -XX:MaxRAMPercentage=65.0 -XX:MinRAMPercentage=10.0
 # - Use parallel collector. This is to have a more efficient use of memory in PRs as it can be 
 #   made to reclaim more aggressively:  
-#   -XX:+UseParallelOldGC 
+#   -XX:+UseParallelGC 
 # - Grow the heap when only 20% is free and shrink it when more than 40% is free:
 #   -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40 
 # - A hint to the virtual machine that up to 20% of time can be spent in GC (this will save memory at the cost of some time):
