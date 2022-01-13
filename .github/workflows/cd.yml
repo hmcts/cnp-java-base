@@ -1,8 +1,12 @@
-name: release
+name: cd
 
 on:
-  release:
-    types: [published]
+  workflow_dispatch:
+  push:
+    branches: "master"
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron: "0 0 * * Tue"
 
 jobs:
   main:
@@ -10,17 +14,12 @@ jobs:
     strategy:
       matrix:
         type: [distroless, distroless-debug]
-        java: [17]
+        java: [11, 17]
     env:
       AZURE_CONTAINER_REGISTRY_URL: hmctspublic.azurecr.io
     steps:
       - name: Checkout Source
         uses: actions/checkout@v2
-      - name: Hadolint Dockerfile
-        # TODO https://github.com/hadolint/hadolint-action/pull/45
-        uses: mblottiere/hadolint-action@390bcfc1bcbdbe0eab20a313ad47a2d297a69441
-        with:
-          dockerfile: ./${{ matrix.type }}/Dockerfile
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Set up QEMU
@@ -31,16 +30,13 @@ jobs:
           registry: ${{ env.AZURE_CONTAINER_REGISTRY_URL }}
           username: ${{ secrets.AZURE_CLIENT_ID }}
           password: ${{ secrets.AZURE_CLIENT_SECRET }}
-      - name: Extract Version
-        id: extract_version
-        run: echo ::set-output name=gh_tag::${GITHUB_REF/refs\/tags\//}
-      - name: Build and Push - Java ${{ matrix.java }} ${{ matrix.type }}
+      - name: Build and Push - Node ${{ matrix.java }} ${{ matrix.type }}
         id: docker_build
         uses: docker/build-push-action@v2
         with:
           context: ./${{ matrix.type }}
           push: true
           platforms: linux/amd64,linux/arm64
-          tags: ${{ env.AZURE_CONTAINER_REGISTRY_URL }}/base/java:openjdk-${{ matrix.java }}-${{ matrix.type }}-${{ steps.extract_version.outputs.gh_tag }}
+          tags: ${{ env.AZURE_CONTAINER_REGISTRY_URL }}/base/java:${{ matrix.java }}-${{ matrix.type }}
           build-args: |
             version=${{ matrix.java }}
