@@ -43,6 +43,6 @@ jobs:
           context: ./${{ matrix.type }}
           push: true
           platforms: linux/amd64,linux/arm64
-          tags: ${{ env.AZURE_CONTAINER_REGISTRY_URL }}/base/java:pr-openjdk-${{ matrix.java }}-${{ matrix.type }}-${{ steps.extract_version.outputs.gh_tag }}
+          tags: ${{ env.AZURE_CONTAINER_REGISTRY_URL }}/base/java:pr-openjdk-${{ matrix.java }}-${{ matrix.type }}
           build-args: |
             version=${{ matrix.java }}
