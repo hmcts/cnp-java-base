@@ -1,10 +1,18 @@
 # Base image for Gradle/Java/Springboot apps
 ARG version=11
+
+# hadolint ignore=DL3018
+# "Using latest is prone to errors if the image will ever update. Pin the version explicitly to a release tag"
+# Desirable to pin to latest in this case.
 FROM hmctspublic.azurecr.io/imported/distroless/java${version}:debug
 
 # https://github.com/GoogleContainerTools/distroless/issues/225#issuecomment-516738609
 # Remove this work around once busybox / distroless have a fix
 # then the dockerfiles can be combined again
+#
+# hadolint ignore=DL3022
+# "COPY --from should reference a previously defined FROM alias"
+# Can be removed when above issue is resolved.
 COPY --from=amd64/busybox:1.31.0 /bin/busybox /busybox/busybox
 
 ENV APP_USER hmcts
@@ -39,6 +47,10 @@ ONBUILD ARG JVM_ARGS=${DEV_JVM_ARGS:-'-XX:InitialRAMPercentage=30.0 -XX:MaxRAMPe
 ONBUILD ARG JAVA_AGENT_OPTIONS
 ONBUILD ENV JAVA_AGENT_OPTIONS=${JAVA_AGENT_OPTIONS:--javaagent:/opt/app/applicationinsights-agent-${APP_INSIGHTS_AGENT_VERSION}.jar}
 
+
+# hadolint ignore=DL3022
+# "COPY --from should reference a previously defined FROM alias"
+# Local build context required.
 COPY group /etc/group
 COPY passwd /etc/passwd
 COPY jattach /bin/jattach
@@ -51,15 +63,15 @@ WORKDIR /opt/app
 USER $APP_USER
 
 # The following options are used for PRs:
-# - Use the followiwng RAM percentages from total RAM exposed by the container to use:  
+# - Use the followiwng RAM percentages from total RAM exposed by the container to use:
 #   -XX:InitialRAMPercentage=20.0 -XX:MaxRAMPercentage=65.0 -XX:MinRAMPercentage=10.0
-# - Use parallel collector. This is to have a more efficient use of memory in PRs as it can be 
-#   made to reclaim more aggressively:  
-#   -XX:+UseParallelGC 
+# - Use parallel collector. This is to have a more efficient use of memory in PRs as it can be
+#   made to reclaim more aggressively:
+#   -XX:+UseParallelGC
 # - Grow the heap when only 20% is free and shrink it when more than 40% is free:
-#   -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40 
+#   -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40
 # - A hint to the virtual machine that up to 20% of time can be spent in GC (this will save memory at the cost of some time):
-#   -XX:GCTimeRatio=4 
+#   -XX:GCTimeRatio=4
 # - Timing goal check should be mostly based on to the current GC execution time (90% weight):
 #   -XX:AdaptiveSizePolicyWeight=90
 # - Use a small min heap size (try to save memory):
