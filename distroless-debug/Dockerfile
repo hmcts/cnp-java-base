@@ -3,7 +3,7 @@ ARG version=11
 
 # "Using latest is prone to errors if the image will ever update. Pin the version explicitly to a release tag"
 # Desirable to pin to latest in this case.
-# hadolint ignore=DL3018
+# hadolint ignore=DL3007
 FROM hmctspublic.azurecr.io/imported/distroless/java${version}:debug
 
 # https://github.com/GoogleContainerTools/distroless/issues/225#issuecomment-516738609
