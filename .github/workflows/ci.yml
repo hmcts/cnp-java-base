@@ -35,7 +35,7 @@ jobs:
           password: ${{ secrets.AZURE_CLIENT_SECRET }}
       - name: Extract Version
         id: extract_version
-        run: echo ::set-output name=gh_tag::${GITHUB_REF#refs/*/}
+        run: echo ::set-output name=gh_tag::${GITHUB_REF/refs\/tags\//}
       - name: Build and Push - Java ${{ matrix.java }} ${{ matrix.type }}
         id: docker_build
         uses: docker/build-push-action@v2
