@@ -40,6 +40,6 @@ jobs:
           context: ./${{ matrix.type }}
           push: true
           platforms: linux/amd64,linux/arm64
-          tags: ${{ env.AZURE_CONTAINER_REGISTRY_URL }}/base/java:pr-$${{ matrix.java }}-${{ matrix.type }}
+          tags: ${{ env.AZURE_CONTAINER_REGISTRY_URL }}/base/java:pr-${{ matrix.java }}-${{ matrix.type }}
           build-args: |
             version=${{ matrix.java }}
