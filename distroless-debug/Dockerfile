@@ -48,9 +48,6 @@ ONBUILD ARG JAVA_AGENT_OPTIONS
 ONBUILD ENV JAVA_AGENT_OPTIONS=${JAVA_AGENT_OPTIONS:--javaagent:/opt/app/applicationinsights-agent-${APP_INSIGHTS_AGENT_VERSION}.jar}
 
 
-# hadolint ignore=DL3022
-# "COPY --from should reference a previously defined FROM alias"
-# Local build context required.
 COPY group /etc/group
 COPY passwd /etc/passwd
 COPY jattach /bin/jattach
