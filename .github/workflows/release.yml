@@ -1,20 +1,16 @@
-name: cd
+name: release
 
 on:
-  workflow_dispatch:
-  push:
-    branches: "master"
-  schedule:
-    # * is a special character in YAML so you have to quote this string
-    - cron: "0 0 * * Tue"
+  release:
+    types: [published]
 
 jobs:
   main:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        type: [alpine, buster-slim]
-        node: [12, 14, 16]
+        type: [distroless, distroless-debug]
+        java: [17]
     env:
       AZURE_CONTAINER_REGISTRY_URL: hmctspublic.azurecr.io
     steps:
@@ -37,7 +33,7 @@ jobs:
           password: ${{ secrets.AZURE_CLIENT_SECRET }}
       - name: Extract Version
         id: extract_version
-        run: echo ::set-output name=gh_tag::${GITHUB_REF#refs/*/}
+        run: echo ::set-output name=gh_tag::${GITHUB_REF/refs\/tags\//}
       - name: Build and Push - Java ${{ matrix.java }} ${{ matrix.type }}
         id: docker_build
         uses: docker/build-push-action@v2
