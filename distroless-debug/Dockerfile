@@ -1,18 +1,18 @@
 # Base image for Gradle/Java/Springboot apps
 ARG version=11
 
-# hadolint ignore=DL3018
 # "Using latest is prone to errors if the image will ever update. Pin the version explicitly to a release tag"
 # Desirable to pin to latest in this case.
+# hadolint ignore=DL3018
 FROM hmctspublic.azurecr.io/imported/distroless/java${version}:debug
 
 # https://github.com/GoogleContainerTools/distroless/issues/225#issuecomment-516738609
 # Remove this work around once busybox / distroless have a fix
 # then the dockerfiles can be combined again
 #
-# hadolint ignore=DL3022
 # "COPY --from should reference a previously defined FROM alias"
 # Can be removed when above issue is resolved.
+# hadolint ignore=DL3022
 COPY --from=amd64/busybox:1.31.0 /bin/busybox /busybox/busybox
 
 ENV APP_USER hmcts
