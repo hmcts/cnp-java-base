@@ -5,6 +5,13 @@
 ## Purpose
 Base docker image for Java Spring Boot applications running in containers, specifically on Kubernetes.
 
+## Supported Images list
+
+| Tag                                                 | OS             | Java version   |
+| ----------------------------------------------------| -------------- | -------------- |
+| `hmctspublic.azurecr.io/base/java:17-distroless`    | Debian 11      | Java 17        |
+| `hmctspublic.azurecr.io/base/java:11-distroless`    | Debian 11      | Java 11        |
+
 ## Features
 
 It uses the JVM container-aware settings introduced in Java 10 and backported to Java 8 in release 191. For more information see:
