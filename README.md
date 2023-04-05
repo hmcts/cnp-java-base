@@ -15,7 +15,10 @@ The image includes base settings tuned to provide best trade off between speed a
 Application insights agent variables are set by default, you need to add the agent to the image and set the version that you're using (`APP_INSIGHTS_AGENT_VERSION`)
 
 ## Usage
-To use this as your base image, construct your Dockerfile like so (java 8):
+
+### Java 17
+
+To use this as your base image, construct your Dockerfile like so:
 ```
 # renovate: datasource=github-releases depName=microsoft/ApplicationInsights-Java
 ARG APP_INSIGHTS_AGENT_VERSION=3.4.11
@@ -28,11 +31,12 @@ COPY build/libs/cnp-rhubarb-recipes-service.jar /opt/app/
 CMD ["cnp-rhubarb-recipes-service.jar"]
 ```
 
-Java 11:
+### Java 11
+
 ```
 # renovate: datasource=github-releases depName=microsoft/ApplicationInsights-Java
 ARG APP_INSIGHTS_AGENT_VERSION=3.4.11
-FROM hmcts/cnp-java-base:11-distroless
+FROM hmctspublic.azurecr.io/base/java:11-distroless
 
 COPY lib/AI-Agent.xml /opt/app/
 
@@ -42,7 +46,8 @@ COPY build/libs/cnp-rhubarb-recipes-service.jar /opt/app/
 CMD ["cnp-rhubarb-recipes-service.jar"]
 ```
 
-Advanced version:
+### Advanced version
+
 ```
 ARG JAVA_OPTS="" # Optional, do not include if unneeded
 # renovate: datasource=github-releases depName=microsoft/ApplicationInsights-Java
