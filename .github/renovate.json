@@ -1,13 +1,17 @@
 {
-    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": [
-      "github>hmcts/.github//renovate/global",
-      "github>hmcts/.github//renovate/automerge-all"
-    ],
-    "regexManagers": [{
-        "fileMatch": ["^README.md$"],
-        "matchStrings": [
-          "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sARG .*?_VERSION=(?<currentValue>.*)\\s"
-        ]
-      }]
-  }
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "github>hmcts/.github//renovate/automerge-all",
+    "local>hmcts/.github:renovate-config"
+  ],
+  "regexManagers": [
+    {
+      "fileMatch": [
+        "^README.md$"
+      ],
+      "matchStrings": [
+        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sARG .*?_VERSION=(?<currentValue>.*)\\s"
+      ]
+    }
+  ]
+}
