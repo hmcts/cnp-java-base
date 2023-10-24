@@ -1,16 +1,17 @@
 # cnp-java-base
 
-[![Build Status](https://dev.azure.com/hmcts/Platform%20Engineering/_apis/build/status/ACR/Publish%20Java%20Base%20Image?branchName=master)](https://dev.azure.com/hmcts/Platform%20Engineering/_build/latest?definitionId=218&branchName=master)
+[![Build Status](https://dev.azure.com/hmcts/PlatformOperations/_apis/build/status/770)](https://dev.azure.com/hmcts/PlatformOperations/_build/latest?definitionId=770&branchName=master)
 
 ## Purpose
 Base docker image for Java Spring Boot applications running in containers, specifically on Kubernetes.
 
 ## Supported Images list
 
-| Tag                                                 | OS             | Java version   |
-| ----------------------------------------------------| -------------- | -------------- |
-| `hmctspublic.azurecr.io/base/java:17-distroless`    | Debian 11      | Java 17        |
-| `hmctspublic.azurecr.io/base/java:11-distroless`    | Debian 11      | Java 11        |
+| Tag                                              | OS           | Java version |
+|--------------------------------------------------|--------------|--------------|
+| `hmctspublic.azurecr.io/base/java:21-distroless` | Ubuntu 22.04 | Java 21      |
+| `hmctspublic.azurecr.io/base/java:17-distroless` | Ubuntu 22.04 | Java 17      |
+| `hmctspublic.azurecr.io/base/java:11-distroless` | Ubuntu 22.04 | Java 11      |
 
 ## Features
 
@@ -23,7 +24,23 @@ Application insights agent variables are set by default, you need to add the age
 
 ## Usage
 
-### Java 17
+### Java 21
+
+To use this as your base image, construct your Dockerfile like so:
+```
+# renovate: datasource=github-releases depName=microsoft/ApplicationInsights-Java
+ARG APP_INSIGHTS_AGENT_VERSION=3.4.17
+FROM hmctspublic.azurecr.io/base/java:21-distroless
+COPY lib/AI-Agent.xml /opt/app/
+
+# Note: replace with your app name.
+COPY build/libs/cnp-rhubarb-recipes-service.jar /opt/app/
+
+CMD ["cnp-rhubarb-recipes-service.jar"]
+```
+
+
+### Java 17
 
 To use this as your base image, construct your Dockerfile like so:
 ```
@@ -53,7 +70,7 @@ COPY build/libs/cnp-rhubarb-recipes-service.jar /opt/app/
 CMD ["cnp-rhubarb-recipes-service.jar"]
 ```
 
-### Advanced version
+### Advanced version
 
 ```
 ARG JAVA_OPTS="" # Optional, do not include if unneeded
