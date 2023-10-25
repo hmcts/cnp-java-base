@@ -40,5 +40,4 @@ jobs:
           tags: ${{ env.AZURE_CONTAINER_REGISTRY_URL }}/base/java:${{ matrix.java }}-${{ matrix.type }}
           build-args: hmctspublic.azurecr.io/imported/distroless/java${{ matrix.java }}
           if: {{ matrix.java }} == 21
-            tags: cgr.dev/chainguard/jdk:latest
             build-args: url=cgr.dev/chainguard/jdk:latest
