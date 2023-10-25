@@ -41,5 +41,5 @@ jobs:
           if: {{ matrix.java }} == 21
             build-args: |
               url=cgr.dev/chainguard/jdk:latest
-          build-args: |
-            url=hmctspublic.azurecr.io/imported/distroless/java${{ matrix.java }}
+            build-args: |
+              url=hmctspublic.azurecr.io/imported/distroless/java${{ matrix.java }}
