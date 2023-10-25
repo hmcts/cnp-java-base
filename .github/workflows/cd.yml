@@ -38,5 +38,8 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: ${{ env.AZURE_CONTAINER_REGISTRY_URL }}/base/java:${{ matrix.java }}-${{ matrix.type }}
+          if: {{ matrix.java }} == 21
+            build-args: |
+              url=cgr.dev/chainguard/jdk:latest
           build-args: |
-            version=${{ matrix.java }}
+            url=hmctspublic.azurecr.io/imported/distroless/java${{ matrix.java }}
