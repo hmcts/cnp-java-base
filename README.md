@@ -10,7 +10,7 @@ Base docker image for Java Spring Boot applications running in containers, speci
 | Tag                                                 | OS             | Java version   |
 | ----------------------------------------------------| -------------- | -------------- |
 | `hmctspublic.azurecr.io/base/java:17-distroless`    | Debian 11      | Java 17        |
-| `hmctspublic.azurecr.io/base/java:11-distroless`    | Debian 11      | Java 11        |
+| `hmctspublic.azurecr.io/base/java:11-distroless`    | Debian 12      | Java 21        |
 
 ## Features
 
@@ -28,7 +28,7 @@ Application insights agent variables are set by default, you need to add the age
 To use this as your base image, construct your Dockerfile like so:
 ```
 # renovate: datasource=github-releases depName=microsoft/ApplicationInsights-Java
-ARG APP_INSIGHTS_AGENT_VERSION=3.4.17
+ARG APP_INSIGHTS_AGENT_VERSION=3.4.18
 FROM hmctspublic.azurecr.io/base/java:17-distroless
 COPY lib/AI-Agent.xml /opt/app/
 
@@ -38,12 +38,12 @@ COPY build/libs/cnp-rhubarb-recipes-service.jar /opt/app/
 CMD ["cnp-rhubarb-recipes-service.jar"]
 ```
 
-### Java 11
+### Java 21
 
 ```
 # renovate: datasource=github-releases depName=microsoft/ApplicationInsights-Java
-ARG APP_INSIGHTS_AGENT_VERSION=3.4.17
-FROM hmctspublic.azurecr.io/base/java:11-distroless
+ARG APP_INSIGHTS_AGENT_VERSION=3.4.18
+FROM hmctspublic.azurecr.io/base/java:21-distroless
 
 COPY lib/AI-Agent.xml /opt/app/
 
@@ -58,7 +58,7 @@ CMD ["cnp-rhubarb-recipes-service.jar"]
 ```
 ARG JAVA_OPTS="" # Optional, do not include if unneeded
 # renovate: datasource=github-releases depName=microsoft/ApplicationInsights-Java
-ARG APP_INSIGHTS_AGENT_VERSION=3.4.17
+ARG APP_INSIGHTS_AGENT_VERSION=3.4.18
 FROM hmcts/cnp-java-base:17-distroless
 
 COPY lib/AI-Agent.xml /opt/app/
