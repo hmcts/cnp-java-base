@@ -13,7 +13,7 @@ FROM hmctspublic.azurecr.io/imported/distroless/java${version}:debug
 # "COPY --from should reference a previously defined FROM alias"
 # Can be removed when above issue is resolved.
 # hadolint ignore=DL3022
-COPY --from=amd64/busybox:1.36.1 /bin/busybox /busybox/busybox
+COPY --from=busybox:1.36.1 /bin/busybox /busybox/busybox
 
 ENV APP_USER hmcts
 
