@@ -10,7 +10,7 @@ Base docker image for Java Spring Boot applications running in containers, speci
 | Tag                                                 | OS             | Java version   |
 | ----------------------------------------------------| -------------- | -------------- |
 | `hmctspublic.azurecr.io/base/java:17-distroless`    | Debian 11      | Java 17        |
-| `hmctspublic.azurecr.io/base/java:11-distroless`    | Debian 12      | Java 21        |
+| `hmctspublic.azurecr.io/base/java:21-distroless`    | Debian 12      | Java 21        |
 
 ## Features
 
