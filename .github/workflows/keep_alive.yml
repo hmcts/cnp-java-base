@@ -1,0 +1,15 @@
+name: Keep scheduled jobs running
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+# Prevent scheduled jobs being disabled after 60 days
+jobs:
+  keepalive:
+    name: Keep scheduled jobs running
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 'reset keepalive timer'
+        uses: gautamkrishnar/keepalive-workflow@v2
