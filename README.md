@@ -28,7 +28,7 @@ Application insights agent variables are set by default, you need to add the age
 To use this as your base image, construct your Dockerfile like so:
 ```
 # renovate: datasource=github-releases depName=microsoft/ApplicationInsights-Java
-ARG APP_INSIGHTS_AGENT_VERSION=3.7.5
+ARG APP_INSIGHTS_AGENT_VERSION=3.7.6
 FROM hmctspublic.azurecr.io/base/java:17-distroless
 COPY lib/AI-Agent.xml /opt/app/
 
@@ -42,7 +42,7 @@ CMD ["cnp-rhubarb-recipes-service.jar"]
 
 ```
 # renovate: datasource=github-releases depName=microsoft/ApplicationInsights-Java
-ARG APP_INSIGHTS_AGENT_VERSION=3.7.5
+ARG APP_INSIGHTS_AGENT_VERSION=3.7.6
 FROM hmctspublic.azurecr.io/base/java:21-distroless
 
 COPY lib/AI-Agent.xml /opt/app/
@@ -58,7 +58,7 @@ CMD ["cnp-rhubarb-recipes-service.jar"]
 ```
 ARG JAVA_OPTS="" # Optional, do not include if unneeded
 # renovate: datasource=github-releases depName=microsoft/ApplicationInsights-Java
-ARG APP_INSIGHTS_AGENT_VERSION=3.7.5
+ARG APP_INSIGHTS_AGENT_VERSION=3.7.6
 FROM hmcts/cnp-java-base:17-distroless
 
 COPY lib/AI-Agent.xml /opt/app/
