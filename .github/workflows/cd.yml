@@ -11,26 +11,57 @@ on:
 jobs:
   main:
     runs-on: ubuntu-24.04
+    permissions:
+      id-token: write
     strategy:
       matrix:
         type: [distroless, distroless-debug]
         java: [17, 21]
     env:
       AZURE_CONTAINER_REGISTRY_URL: hmctspublic.azurecr.io
+      NEW_AZURE_CONTAINER_REGISTRY_URL: hmctsprod.azurecr.io
     steps:
       - name: Checkout Source
         uses: actions/checkout@v6
+
+      - name: 'Az CLI login'
+        uses: azure/login@v2
+        with:
+          client-id: c6a3a50b-762f-4b4f-b7ec-f1d84be20cef # DTS Platform Operations GitHub Actions ACR Publisher 1
+          tenant-id: 531ff96d-0ae9-462a-8d2d-bec7c0b42082 # HMCTS.NET
+          allow-no-subscriptions: true
+
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: Set up QEMU
+
+      - name: Set up QEMU for Docker
         uses: docker/setup-qemu-action@v3
-      - name: Login to Azure Container Repository
+
+      # HMCTSProd
+      - name: 'ACR Login - ${{ env.NEW_AZURE_CONTAINER_REGISTRY_URL }}'
+        run: |
+          az acr login --name hmctsprod
+
+      - name: 'Build and Push prod image - ${{ env.NEW_AZURE_CONTAINER_REGISTRY_URL }} - Java ${{ matrix.java }} ${{ matrix.type }}'
+        if: github.ref == 'refs/heads/master'
+        uses: docker/build-push-action@v6
+        with:
+          context: ./${{ matrix.type }}
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: ${{ env.NEW_AZURE_CONTAINER_REGISTRY_URL }}/base/java:${{ matrix.java }}-${{ matrix.type }}
+          build-args: |
+            version=${{ matrix.java }}
+
+      # HMCTSPublic
+      - name: 'ACR Login - ${{ env.AZURE_CONTAINER_REGISTRY_URL }}'
         uses: docker/login-action@v3
         with:
           registry: ${{ env.AZURE_CONTAINER_REGISTRY_URL }}
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
-      - name: Build and Push - Node ${{ matrix.java }} ${{ matrix.type }}
+
+      - name: 'Build and Push prod image - ${{ env.AZURE_CONTAINER_REGISTRY_URL }} - Java ${{ matrix.java }} ${{ matrix.type }}'
         id: docker_build
         uses: docker/build-push-action@v6
         with:
