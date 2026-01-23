@@ -40,7 +40,9 @@ jobs:
       - name: Set up QEMU for Docker
         uses: docker/setup-qemu-action@v3
 
-      # HMCTSProd
+      ###################################################
+      # HMCTSPROD ACR
+      ###################################################
       - name: 'ACR Login - HMCTSPROD'
         run: |
           az acr login --name hmctsprod
@@ -55,7 +57,9 @@ jobs:
           build-args: |
             version=${{ matrix.java }}
 
-      # HMCTSPublic
+      ###################################################
+      # HMCTSPUBLIC ACR - Push
+      ###################################################
       - name: 'ACR Login - HMCTSPUBLIC'
         uses: docker/login-action@v3
         with:
