@@ -45,7 +45,7 @@ ONBUILD ARG DEV_JVM_ARGS=${DEV_MODE:+'-XX:InitialRAMPercentage=20.0 -XX:MaxRAMPe
 ONBUILD ARG JVM_ARGS=${DEV_JVM_ARGS:-'-XX:InitialRAMPercentage=30.0 -XX:MaxRAMPercentage=65.0 -XX:MinRAMPercentage=30.0'}
 
 ONBUILD ARG JAVA_AGENT_OPTIONS
-ONBUILD ENV JAVA_AGENT_OPTIONS=${JAVA_AGENT_OPTIONS:--javaagent:/opt/app/applicationinsights-agent-${APP_INSIGHTS_AGENT_VERSION}.jar}
+ONBUILD ENV JAVA_AGENT_OPTIONS=${JAVA_AGENT_OPTIONS:--javaagent:/opt/app/applicationinsights-agent.jar}
 
 
 COPY group /etc/group
@@ -54,6 +54,7 @@ COPY jattach /bin/jattach
 
 
 COPY --chown=hmcts:hmcts app/ /opt/app/
+ONBUILD ADD --chown=hmcts:hmcts https://github.com/Microsoft/ApplicationInsights-Java/releases/download/${APP_INSIGHTS_AGENT_VERSION}/applicationinsights-agent-${APP_INSIGHTS_AGENT_VERSION}.jar /opt/app/applicationinsights-agent.jar
 ONBUILD ADD --chown=hmcts:hmcts https://github.com/Microsoft/ApplicationInsights-Java/releases/download/${APP_INSIGHTS_AGENT_VERSION}/applicationinsights-agent-${APP_INSIGHTS_AGENT_VERSION}.jar /opt/app
 
 WORKDIR /opt/app

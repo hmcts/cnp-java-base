@@ -19,7 +19,9 @@ It uses the JVM container-aware settings introduced in Java 10 and backported to
 
 The image includes base settings tuned to provide best trade off between speed and memory efficiency. 
 
-Application insights agent variables are set by default, you need to add the agent to the image and set the version that you're using (`APP_INSIGHTS_AGENT_VERSION`)
+Application insights agent variables are set by default. Set `APP_INSIGHTS_AGENT_VERSION` in your Dockerfile and the agent jar will be added under `/opt/app/`.
+
+By default, `JAVA_AGENT_OPTIONS` uses the versionless path `-javaagent:/opt/app/applicationinsights-agent.jar` (a versioned copy is also added for backwards compatibility).
 
 ## Usage
 
