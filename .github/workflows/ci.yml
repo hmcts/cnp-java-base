@@ -48,7 +48,7 @@ jobs:
           az acr login --name hmctsprod
 
       - name: 'Build and Push PR image - ${{ env.NEW_AZURE_CONTAINER_REGISTRY_URL }} - Java ${{ matrix.java }} ${{ matrix.type }}'
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: ./${{ matrix.type }}
           push: true
@@ -69,7 +69,7 @@ jobs:
 
       - name: 'Build and Push PR image - ${{ env.AZURE_CONTAINER_REGISTRY_URL }} - Java ${{ matrix.java }} ${{ matrix.type }}'
         id: docker_build
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: ./${{ matrix.type }}
           push: true
