@@ -30,7 +30,7 @@ jobs:
           allow-no-subscriptions: true
 
       - name: Lint Dockerfile
-        uses: hadolint/hadolint-action@v3.2.0
+        uses: hadolint/hadolint-action@v3.3.0
         with:
           dockerfile: ./${{ matrix.type }}/Dockerfile
 
