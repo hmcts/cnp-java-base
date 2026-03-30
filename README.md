@@ -29,7 +29,7 @@ By default, `JAVA_AGENT_OPTIONS` uses the versionless path `-javaagent:/opt/app/
 
 ```
 # renovate: datasource=github-releases depName=microsoft/ApplicationInsights-Java
-ARG APP_INSIGHTS_AGENT_VERSION=3.7.7
+ARG APP_INSIGHTS_AGENT_VERSION=3.7.8
 FROM hmctspublic.azurecr.io/base/java:21-distroless
 
 COPY lib/AI-Agent.xml /opt/app/
@@ -45,7 +45,7 @@ CMD ["cnp-rhubarb-recipes-service.jar"]
 ```
 ARG JAVA_OPTS="" # Optional, do not include if unneeded
 # renovate: datasource=github-releases depName=microsoft/ApplicationInsights-Java
-ARG APP_INSIGHTS_AGENT_VERSION=3.7.7
+ARG APP_INSIGHTS_AGENT_VERSION=3.7.8
 FROM hmcts/cnp-java-base:21-distroless
 
 COPY lib/AI-Agent.xml /opt/app/
