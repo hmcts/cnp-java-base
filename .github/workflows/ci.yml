@@ -18,11 +18,12 @@ jobs:
     env:
       AZURE_CONTAINER_REGISTRY_URL: hmctspublic.azurecr.io
       NEW_AZURE_CONTAINER_REGISTRY_URL: hmctsprod.azurecr.io
+      SBOX_AZURE_CONTAINER_REGISTRY_URL: hmctssbox.azurecr.io
     steps:
       - name: Checkout Source
         uses: actions/checkout@v6
 
-      - name: 'Az CLI login'
+      - name: "Az CLI login"
         uses: azure/login@v3
         with:
           client-id: c6a3a50b-762f-4b4f-b7ec-f1d84be20cef # DTS Platform Operations GitHub Actions ACR Publisher 1
@@ -43,11 +44,11 @@ jobs:
       ###################################################
       # HMCTSPROD ACR
       ###################################################
-      - name: 'ACR Login - HMCTSPROD'
+      - name: "ACR Login - HMCTSPROD"
         run: |
           az acr login --name hmctsprod
 
-      - name: 'Build and Push PR image - ${{ env.NEW_AZURE_CONTAINER_REGISTRY_URL }} - Java ${{ matrix.java }} ${{ matrix.type }}'
+      - name: "Build and Push PR image - ${{ env.NEW_AZURE_CONTAINER_REGISTRY_URL }} - Java ${{ matrix.java }} ${{ matrix.type }}"
         uses: docker/build-push-action@v7
         with:
           context: ./${{ matrix.type }}
@@ -60,14 +61,14 @@ jobs:
       ###################################################
       # HMCTSPUBLIC ACR - Push
       ###################################################
-      - name: 'ACR Login - HMCTSPUBLIC'
+      - name: "ACR Login - HMCTSPUBLIC"
         uses: docker/login-action@v4
         with:
           registry: ${{ env.AZURE_CONTAINER_REGISTRY_URL }}
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
-      - name: 'Build and Push PR image - ${{ env.AZURE_CONTAINER_REGISTRY_URL }} - Java ${{ matrix.java }} ${{ matrix.type }}'
+      - name: "Build and Push PR image - ${{ env.AZURE_CONTAINER_REGISTRY_URL }} - Java ${{ matrix.java }} ${{ matrix.type }}"
         id: docker_build
         uses: docker/build-push-action@v7
         with:
@@ -75,5 +76,22 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: ${{ env.AZURE_CONTAINER_REGISTRY_URL }}/base/java:pr-${{ matrix.java }}-${{ matrix.type }}
+          build-args: |
+            version=${{ matrix.java }}
+
+      ###################################################
+      # HMCTSSBOX ACR
+      ###################################################
+      - name: "ACR Login - HMCTSSBOX"
+        run: |
+          az acr login --name hmctssbox
+
+      - name: "Build and Push PR image - ${{ env.SBOX_AZURE_CONTAINER_REGISTRY_URL }} - Java ${{ matrix.java }} ${{ matrix.type }}"
+        uses: docker/build-push-action@v7
+        with:
+          context: ./${{ matrix.type }}
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: ${{ env.SBOX_AZURE_CONTAINER_REGISTRY_URL }}/base/java:pr-${{ matrix.java }}-${{ matrix.type }}
           build-args: |
             version=${{ matrix.java }}
