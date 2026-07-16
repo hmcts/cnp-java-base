@@ -10,6 +10,7 @@ Base docker image for Java Spring Boot applications running in containers, speci
 | Tag                                                 | OS             | Java version   |
 | ----------------------------------------------------| -------------- | -------------- |
 | `hmctspublic.azurecr.io/base/java:21-distroless`    | Debian 12      | Java 21        |
+| `hmctspublic.azurecr.io/base/java:25-distroless`    | Debian 13      | Java 25        |
 
 ## Features
 
@@ -31,6 +32,21 @@ By default, `JAVA_AGENT_OPTIONS` uses the versionless path `-javaagent:/opt/app/
 # renovate: datasource=github-releases depName=microsoft/ApplicationInsights-Java
 ARG APP_INSIGHTS_AGENT_VERSION=3.7.9
 FROM hmctspublic.azurecr.io/base/java:21-distroless
+
+COPY lib/AI-Agent.xml /opt/app/
+
+# Note: replace with your app name.
+COPY build/libs/cnp-rhubarb-recipes-service.jar /opt/app/
+
+CMD ["cnp-rhubarb-recipes-service.jar"]
+```
+
+### Java 25
+
+```
+# renovate: datasource=github-releases depName=microsoft/ApplicationInsights-Java
+ARG APP_INSIGHTS_AGENT_VERSION=3.7.9
+FROM hmctspublic.azurecr.io/base/java:25-distroless
 
 COPY lib/AI-Agent.xml /opt/app/
 
