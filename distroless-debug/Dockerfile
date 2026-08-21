@@ -1,5 +1,5 @@
 # Base image for Gradle/Java/Springboot apps
-ARG version=11
+ARG version=21
 
 # "Using latest is prone to errors if the image will ever update. Pin the version explicitly to a release tag"
 # Desirable to pin to latest in this case.
