@@ -4,7 +4,7 @@ ARG version=21
 # "Using latest is prone to errors if the image will ever update. Pin the version explicitly to a release tag"
 # Desirable to pin to latest in this case.
 # hadolint ignore=DL3007
-FROM hmctspublic.azurecr.io/imported/distroless/java${version}:latest
+FROM hmctsprod.azurecr.io/imported/distroless/java${version}:latest
 
 ENV APP_USER hmcts
 
