@@ -9,11 +9,8 @@ Base docker image for Java Spring Boot applications running in containers, speci
 
 | Tag                                                 | OS             | Java version   |
 | ----------------------------------------------------| -------------- | -------------- |
-| `hmctsprod.azurecr.io/base/java:21-distroless`    | Debian 12      | Java 21        |
-| `hmctsprod.azurecr.io/base/java:21-debian13-distroless` | Debian 13 | Java 21 |
+| `hmctsprod.azurecr.io/base/java:21-distroless`    | Debian 13      | Java 21        |
 | `hmctsprod.azurecr.io/base/java:25-distroless`    | Debian 13      | Java 25        |
-
-The `21-debian13-distroless` tag is an opt-in candidate for compatibility testing. The existing `21-distroless` tag remains the default until the candidate has been validated.
 
 ## Features
 
